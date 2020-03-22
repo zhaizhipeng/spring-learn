@@ -2,7 +2,11 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       https://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!-- bean 标签：用于配置让 spring 创建对象，并且存入 ioc 容器之中
         id 属性：对象的唯一标识
@@ -116,14 +120,17 @@
     </bean>-->
 
     <!-- 配置 service -->
-    <bean id="accountService" class="com.ysdrzp.service.impl.AccountServiceImpl">
+    <!--<bean id="accountService" class="com.ysdrzp.service.impl.AccountServiceImpl">
         <property name="accountDao" ref="accountDao"></property>
-    </bean>
+    </bean>-->
 
     <!-- 配置 dao -->
-    <bean id="accountDao" class="com.ysdrzp.dao.impl.AccountDaoImpl">
+    <!--<bean id="accountDao" class="com.ysdrzp.dao.impl.AccountDaoImpl">
         <property name="dataSource" ref="dataSource"></property>
-    </bean>
+    </bean>-->
+
+    <!-- 告知 spring 创建容器时要扫描的包 -->
+    <context:component-scan base-package="com.ysdrzp" />
 
     <!-- 配置数据源 -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">

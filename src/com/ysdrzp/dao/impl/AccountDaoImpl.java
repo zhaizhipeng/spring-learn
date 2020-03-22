@@ -5,6 +5,8 @@ import com.ysdrzp.model.Account;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -13,13 +15,11 @@ import java.util.List;
 /**
  * 账户持久层实现
  */
+@Component("accountDao")
 public class AccountDaoImpl implements IAccountDao {
 
+    @Autowired
     private DataSource dataSource;
-
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
 
     @Override
     public void save(Account account) {
