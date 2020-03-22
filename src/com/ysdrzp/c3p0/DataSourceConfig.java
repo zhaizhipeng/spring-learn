@@ -1,6 +1,5 @@
 package com.ysdrzp.c3p0;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
@@ -10,15 +9,25 @@ import java.sql.SQLException;
 @Component("dataSourceConfig")
 public class DataSourceConfig {
 
-    @Autowired
     private DataSource dataSource;
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
+    private Connection connection;
 
     /**
      * 获取连接
      * @return
      * @throws SQLException
      */
-    public Connection getConnection() throws SQLException {
-        return dataSource.getConnection();
+    public void createConnection() throws SQLException {
+        connection = dataSource.getConnection();
     }
+
+    public Connection getConnection(){
+        return connection;
+    }
+
 }
