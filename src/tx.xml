@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 配置 spring 创建容器时要扫描的包 -->
+    <context:component-scan base-package="com.ysdrzp"></context:component-scan>
+
+    <!-- 配置一个数据库的操作模板：JdbcTemplate -->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <!-- 配置数据源 -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/spring?characterEncoding=UTF-8"></property>
+        <property name="username" value="root"></property>
+        <property name="password" value="root"></property>
+    </bean>
+
+    <!-- 配置一个事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!-- 注入 DataSource -->
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <!-- 开启 spring 对注解事务的支持 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!-- 事务的配置 -->
+    <!--<tx:advice id="txAdvice" transaction-manager="transactionManager">
+        &lt;!&ndash; 配置事务的属性 &ndash;&gt;
+        <tx:attributes>
+            &lt;!&ndash; 指定方法名称：是业务核心方法。
+                read-only：是否是只读事务。默认 false，不只读。
+                isolation：指定事务的隔离级别。默认值是使用数据库的默认隔离级别。
+                propagation：指定事务的传播行为。
+                timeout：指定超时时间。默认值为：-1。永不超时。
+                rollback-for：用于指定一个异常，当产生该异常时，事务回滚。产生其他异常，事务不回滚。没有默认值，任何异常都回滚。
+                no-rollback-for：用于指定一个异常，当产生该异常时，事务不回滚，产生其他异常时，事务回滚。没有默认值，任何异常都回滚。
+            &ndash;&gt;
+            <tx:method name="*" read-only="false" propagation="REQUIRED"/>
+            <tx:method name="find*" read-only="true" propagation="SUPPORTS"/>
+        </tx:attributes>
+    </tx:advice>-->
+
+    <!-- 配置 aop -->
+    <!--<aop:config>
+        &lt;!&ndash; 配置切入点表达式 &ndash;&gt;
+        <aop:pointcut expression="execution(* com.ysdrzp.service.impl.*.*(..))" id="point"/>
+        &lt;!&ndash; 在 aop:config 标签内部：建立事务的通知和切入点表达式的关系 &ndash;&gt;
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="point"/>
+    </aop:config>-->
+
+</beans>

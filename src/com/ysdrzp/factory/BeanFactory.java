@@ -1,17 +1,14 @@
 package com.ysdrzp.factory;
 
-import com.ysdrzp.c3p0.DataSourceConfig;
 import com.ysdrzp.service.IAccountService;
-import com.ysdrzp.service.impl.AccountServiceImpl;
 import com.ysdrzp.transaction.TransactionManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.sql.Connection;
-import java.sql.SQLException;
 
 /**
  * 用于创建客户业务层代理对象工厂
@@ -22,7 +19,7 @@ public class BeanFactory {
     @Autowired
     private IAccountService accountService;
 
-    @Autowired
+    @Autowired(required = false)
     private TransactionManager transactionManager;
 
     /**

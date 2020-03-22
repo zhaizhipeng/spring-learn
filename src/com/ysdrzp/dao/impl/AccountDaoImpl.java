@@ -20,7 +20,13 @@ import java.util.List;
 public class AccountDaoImpl implements IAccountDao {
 
     @Autowired
+    private JdbcTemplate jdbcTemplate;
+
     private ConnectionUtil connectionUtil;
+
+    public void setConnectionUtil(ConnectionUtil connectionUtil) {
+        this.connectionUtil = connectionUtil;
+    }
 
     @Override
     public void save(Account account) {
@@ -80,12 +86,6 @@ public class AccountDaoImpl implements IAccountDao {
         }catch (Exception e){
             throw new RuntimeException(e);
         }
-    }
-
-    private JdbcTemplate jdbcTemplate;
-
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override

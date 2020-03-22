@@ -28,17 +28,17 @@ public interface IAccountService {
     void deleteAccount(Integer accountId);
 
     /**
+     * 查询所有账户
+     * @return
+     */
+    List<Account> findAllAccount();
+
+    /**
      * 根据 id 查询账户
      * @param accountId
      * @return
      */
     Account findAccountById(Integer accountId);
-
-    /**
-     * 查询所有账户
-     * @return
-     */
-    List<Account> findAllAccount();
 
     /**
      * 转账
