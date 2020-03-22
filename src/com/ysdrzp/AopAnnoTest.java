@@ -5,14 +5,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * Aop xml 方式配置
+ * Aop 注解方式配置
  */
-public class AopXmlTest {
+public class AopAnnoTest {
 
     public static void main(String[] args) {
         ApplicationContext ac = new ClassPathXmlApplicationContext("bean.xml");
-        IAccountService as = ac.getBean("accountService", IAccountService.class);
+        IAccountService as = ac.getBean("accountServiceImpl", IAccountService.class);
         as.transfer("bbb", "ccc" , Float.parseFloat("100"));
     }
-
 }

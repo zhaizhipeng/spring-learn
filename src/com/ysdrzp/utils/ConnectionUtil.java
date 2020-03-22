@@ -1,11 +1,15 @@
 package com.ysdrzp.utils;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import javax.sql.DataSource;
 import java.sql.Connection;
 
 /**
  * 连接管理类
  */
+@Component
 public class ConnectionUtil {
 
     private ThreadLocal<Connection> threadLocal = new ThreadLocal<>();
@@ -14,11 +18,8 @@ public class ConnectionUtil {
         this.threadLocal = threadLocal;
     }
 
+    @Autowired
     private DataSource dataSource;
-
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
 
     /**
      * 获取当前线程上的连接

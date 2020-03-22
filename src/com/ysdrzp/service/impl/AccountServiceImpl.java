@@ -3,19 +3,19 @@ package com.ysdrzp.service.impl;
 import com.ysdrzp.dao.IAccountDao;
 import com.ysdrzp.model.Account;
 import com.ysdrzp.service.IAccountService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * 账户业务层实现
  */
+@Service
 public class AccountServiceImpl implements IAccountService {
 
+    @Autowired
     private IAccountDao accountDao;
-
-    public void setAccountDao(IAccountDao accountDao) {
-        this.accountDao = accountDao;
-    }
 
     @Override
     public void saveAccount(Account account) {

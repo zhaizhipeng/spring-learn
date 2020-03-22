@@ -133,21 +133,7 @@
     </bean>-->
 
     <!-- 告知 spring 创建容器时要扫描的包 -->
-    <!--<context:component-scan base-package="com.ysdrzp" />-->
-
-    <!-- 配置 service -->
-    <bean id="accountService" class="com.ysdrzp.service.impl.AccountServiceImpl">
-        <property name="accountDao" ref="accountDao"></property>
-    </bean>
-
-    <!-- 配置 dao -->
-    <bean id="accountDao" class="com.ysdrzp.dao.impl.AccountDaoImpl">
-        <property name="connectionUtil" ref="connectionUtil"></property>
-    </bean>
-
-    <bean id="connectionUtil" class="com.ysdrzp.utils.ConnectionUtil">
-        <property name="dataSource" ref="dataSource"></property>
-    </bean>
+    <context:component-scan base-package="com.ysdrzp" />
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
@@ -156,24 +142,23 @@
         <property name="password" value="root"></property>
     </bean>
 
-    <bean id="txManager" class="com.ysdrzp.transaction.TransactionManager">
-        <property name="connectionUtil" ref="connectionUtil"></property>
-    </bean>
+    <!-- 开启 spring 对注解 AOP 的支持 -->
+    <aop:aspectj-autoproxy/>
 
     <!-- 开始 aop 配置 -->
-    <aop:config>
-        <!-- 配置切入点表达式 -->
+    <!--<aop:config>
+        &lt;!&ndash; 配置切入点表达式 &ndash;&gt;
         <aop:pointcut expression="execution(public void com.ysdrzp.service.impl.AccountServiceImpl.transfer(java.lang.String, java.lang.String, java.lang.Float) )" id="point"/>
-        <!-- 配置切面 -->
+        &lt;!&ndash; 配置切面 &ndash;&gt;
         <aop:aspect id="txAdvice" ref="txManager">
-            <!--配置通知的类型-->
-            <!--<aop:before method="beginTransaction" pointcut-ref="point"/>
+            &lt;!&ndash;配置通知的类型&ndash;&gt;
+            &lt;!&ndash;<aop:before method="beginTransaction" pointcut-ref="point"/>
             <aop:after-returning method="commit" pointcut-ref="point"/>
             <aop:after-throwing method="rollback" pointcut-ref="point"/>
-            <aop:after method="release" pointcut-ref="point"/>-->
-            <!-- 配置环绕通知 -->
+            <aop:after method="release" pointcut-ref="point"/>&ndash;&gt;
+            &lt;!&ndash; 配置环绕通知 &ndash;&gt;
             <aop:around method="transactionAround" pointcut-ref="point"/>
         </aop:aspect>
-    </aop:config>
+    </aop:config>-->
 
 </beans>

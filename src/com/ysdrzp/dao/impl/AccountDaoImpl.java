@@ -6,19 +6,19 @@ import com.ysdrzp.utils.ConnectionUtil;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * 账户持久层实现
  */
+@Repository
 public class AccountDaoImpl implements IAccountDao {
 
+    @Autowired
     private ConnectionUtil connectionUtil;
-
-    public void setConnectionUtil(ConnectionUtil connectionUtil) {
-        this.connectionUtil = connectionUtil;
-    }
 
     @Override
     public void save(Account account) {
