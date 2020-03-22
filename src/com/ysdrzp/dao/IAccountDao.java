@@ -40,4 +40,9 @@ public interface IAccountDao {
      */
     List<Account> findAll();
 
+    /**
+     * 根据名称
+     */
+    Account findByName(String name);
+
 }

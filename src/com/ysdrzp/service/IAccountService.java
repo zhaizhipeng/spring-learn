@@ -39,4 +39,12 @@ public interface IAccountService {
      * @return
      */
     List<Account> findAllAccount();
+
+    /**
+     * 转账
+     * @param sourceName
+     * @param targetName
+     * @param money
+     */
+    void transfer(String sourceName,String targetName,Float money);
 }

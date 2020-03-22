@@ -72,4 +72,14 @@ public class AccountDaoImpl implements IAccountDao {
         }
     }
 
+    @Override
+    public Account findByName(String name) {
+        try {
+            QueryRunner runner = new QueryRunner(dataSource);
+            return (Account)runner.query("select * from account where name = ?",new BeanListHandler<Account>(Account.class), name);
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
 }
